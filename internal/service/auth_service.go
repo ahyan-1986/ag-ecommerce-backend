@@ -196,7 +196,7 @@ func (s *authService) RefreshToken(refreshToken string) (*domain.AuthResponse, e
 
 // ── Token helpers ─────────────────────────────────────────────────────────────
 
-type asianmumJWTClaims struct {
+type ascendJWTClaims struct {
 	UserID string `json:"userId"`
 	Role   string `json:"role"`
 	Type   string `json:"type"` // access | refresh
@@ -222,14 +222,14 @@ func (s *authService) issueTokens(user *domain.User) (*domain.AuthResponse, erro
 }
 
 func (s *authService) signToken(user *domain.User, tokenType string, expiry time.Duration) (string, error) {
-	claims := asianmumJWTClaims{
+	claims := ascendJWTClaims{
 		UserID: user.ID.String(),
 		Role:   string(user.Role),
 		Type:   tokenType,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiry)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Issuer:    "asianmum",
+			Issuer:    "ascendgroup",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -237,13 +237,13 @@ func (s *authService) signToken(user *domain.User, tokenType string, expiry time
 }
 
 func (s *authService) parseRefreshToken(tokenStr string) (uuid.UUID, error) {
-	token, err := jwt.ParseWithClaims(tokenStr, &asianmumJWTClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenStr, &ascendJWTClaims{}, func(t *jwt.Token) (interface{}, error) {
 		return []byte(s.cfg.JWT.Secret), nil
 	})
 	if err != nil || !token.Valid {
 		return uuid.UUID{}, errors.New("invalid token")
 	}
-	claims, ok := token.Claims.(*asianmumJWTClaims)
+	claims, ok := token.Claims.(*ascendJWTClaims)
 	if !ok || claims.Type != "refresh" {
 		return uuid.UUID{}, errors.New("not a refresh token")
 	}

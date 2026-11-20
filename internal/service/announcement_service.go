@@ -75,7 +75,7 @@ func (s *announcementService) UploadAttachment(id uuid.UUID, data []byte, conten
 	}
 
 	key := fmt.Sprintf("announcements/%s_%s", id.String(), filename)
-	url, err := s.storage.UploadFile("asianmum", key, data, contentType)
+	url, err := s.storage.UploadFile("ag-ecommerce", key, data, contentType)
 	if err != nil {
 		return "", fmt.Errorf("upload failed: %w", err)
 	}

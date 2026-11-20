@@ -118,7 +118,7 @@ func (s *userService) UploadAvatar(userID uuid.UUID, data []byte, contentType st
 		return "", err
 	}
 	key := fmt.Sprintf("avatars/%s", userID.String())
-	url, err := s.storageSvc.UploadFile("asianmum", key, data, contentType)
+	url, err := s.storageSvc.UploadFile("ag-ecommerce", key, data, contentType)
 	if err != nil {
 		return "", err
 	}

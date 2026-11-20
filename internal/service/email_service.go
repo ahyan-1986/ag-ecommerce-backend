@@ -80,22 +80,22 @@ func (s *emailService) sendWithAttachment(to, subject, body, filename string, da
 }
 
 func (s *emailService) SendWelcome(to, firstName string) error {
-	subject := "Welcome to AsianMum! 🐱"
+	subject := "Welcome to Ascend Group! 🐱"
 	body := fmt.Sprintf(`
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
-  <h2>Welcome to AsianMum, %s! 🎉</h2>
+  <h2>Welcome to Ascend Group, %s! 🎉</h2>
   <p>Thank you for joining Malaysia's premium cat litter store.</p>
   <p>We offer a wide range of high-quality cat litter products to keep your home fresh and your cats happy.</p>
-  <a href="https://asianmum.my/shop" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
+  <a href="https://ascendgroup.my/shop" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
     Shop Now
   </a>
-  <p style="color:#666;font-size:14px">The AsianMum Team 🐾</p>
+  <p style="color:#666;font-size:14px">The Ascend Group Team 🐾</p>
 </div>`, firstName)
 	return s.send(to, subject, body)
 }
 
 func (s *emailService) SendEmailVerification(to, firstName, verifyURL string) error {
-	subject := "Verify your AsianMum email address"
+	subject := "Verify your Ascend Group email address"
 	body := fmt.Sprintf(`
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
   <h2>Hi %s, please verify your email</h2>
@@ -109,7 +109,7 @@ func (s *emailService) SendEmailVerification(to, firstName, verifyURL string) er
 }
 
 func (s *emailService) SendPasswordReset(to, firstName, resetURL string) error {
-	subject := "Reset your AsianMum password"
+	subject := "Reset your Ascend Group password"
 	body := fmt.Sprintf(`
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
   <h2>Hi %s, reset your password</h2>
@@ -129,10 +129,10 @@ func (s *emailService) SendOrderConfirmation(to, firstName, orderNo string, tota
   <h2>Thank you for your order, %s! 🛍️</h2>
   <p>Your order <strong>%s</strong> has been confirmed.</p>
   <p>Order Total: <strong>MYR %.2f</strong></p>
-  <a href="https://asianmum.my/orders" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
+  <a href="https://ascendgroup.my/orders" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
     View Order
   </a>
-  <p style="color:#666;font-size:14px">Thank you for choosing AsianMum! 🐱</p>
+  <p style="color:#666;font-size:14px">Thank you for choosing Ascend Group! 🐱</p>
 </div>`, firstName, orderNo, total)
 	return s.send(to, subject, body)
 }
@@ -145,7 +145,7 @@ func (s *emailService) SendOrderShipped(to, firstName, orderNo, courier, trackin
   <p>Order <strong>%s</strong> has been shipped.</p>
   <p><strong>Courier:</strong> %s</p>
   <p><strong>Tracking Number:</strong> %s</p>
-  <p style="color:#666;font-size:14px">AsianMum Team 🐾</p>
+  <p style="color:#666;font-size:14px">Ascend Group Team 🐾</p>
 </div>`, firstName, orderNo, courier, trackingNo)
 	return s.send(to, subject, body)
 }
@@ -157,10 +157,10 @@ func (s *emailService) SendReceiptWithPDF(to, firstName, orderNo string, pdfData
   <h2>Payment Confirmed, %s! 🎉</h2>
   <p>Your payment for order <strong>%s</strong> has been received.</p>
   <p>Please find your receipt attached to this email.</p>
-  <a href="https://asianmum.my/orders" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
+  <a href="https://ascendgroup.my/orders" style="background:#4F46E5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;margin:20px 0">
     View Order
   </a>
-  <p style="color:#666;font-size:14px">Thank you for choosing AsianMum! 🐱</p>
+  <p style="color:#666;font-size:14px">Thank you for choosing Ascend Group! 🐱</p>
 </div>`, firstName, orderNo)
 	return s.sendWithAttachment(to, subject, body, orderNo+".pdf", pdfData)
 }

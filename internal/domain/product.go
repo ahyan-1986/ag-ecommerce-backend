@@ -16,7 +16,7 @@ const (
 	ProductStatusArchived  ProductStatus = "archived"
 )
 
-// Product represents a cat litter product sold on AsianMum.
+// Product represents a cat litter product sold on Ascend Group.
 type Product struct {
 	ID          uuid.UUID      `gorm:"type:uuid;primaryKey;default:gen_random_uuid()" json:"id"`
 	SKU         string         `gorm:"type:varchar(100);uniqueIndex;not null" json:"sku"`
@@ -24,7 +24,7 @@ type Product struct {
 	NameZH      string         `gorm:"type:varchar(255);default:''" json:"nameZh"` // Chinese name
 	Description string         `gorm:"type:text;default:''" json:"description"`
 	Category    string         `gorm:"type:varchar(100);default:''" json:"category"`
-	Brand       string         `gorm:"type:varchar(100);default:'AsianMum'" json:"brand"`
+	Brand       string         `gorm:"type:varchar(100);default:'Ascend Group'" json:"brand"`
 	ImageURL    string         `gorm:"type:varchar(500);default:''" json:"imageUrl"`
 	ImageURLs   string         `gorm:"type:text;default:'[]'" json:"imageUrls"` // JSON array of additional images
 	Tags        string         `gorm:"type:text;default:'[]'" json:"tags"`      // JSON array

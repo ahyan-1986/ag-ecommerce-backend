@@ -119,7 +119,7 @@ func (s *productService) UploadProductImage(productID uuid.UUID, variantID *uuid
 	if variantID != nil {
 		key = fmt.Sprintf("products/%s/variants/%s", productID, *variantID)
 	}
-	url, err := s.storageSvc.UploadFile("asianmum", key, data, contentType)
+	url, err := s.storageSvc.UploadFile("ag-ecommerce", key, data, contentType)
 	if err != nil {
 		return "", err
 	}

@@ -379,7 +379,7 @@ func SeedDefaults(db *gorm.DB) error {
 					Description: "Bursting with Sicilian blood orange, yuzu, and 10g natural inulin prebiotic fiber. Ignites gut balance, bright mood, and clean all-day vitality.",
 					Category:    "Daily Vitality",
 					Brand:       "Ascend Group",
-					ImageURL:    "/images/products/mango-passion.jpg",
+					ImageURL:    "/images/products/ascend-citrus.jpg",
 					Tags:        `["Best Seller", "15% Rebate BV", "Zero Added Sugar", "Halal"]`,
 					Status:      domain.ProductStatusPublished,
 					IsFeatured:  true,
@@ -407,7 +407,7 @@ func SeedDefaults(db *gorm.DB) error {
 					Description: "Wild cranberry, acai, and marine tri-peptide botanicals crafted for radiant skin bounce, hormonal harmony, and joyful daily glow.",
 					Category:    "Beauty & Glow",
 					Brand:       "Ascend Group",
-					ImageURL:    "/images/products/beaufica-cranberry.jpg",
+					ImageURL:    "/images/products/ascend-berry.jpg",
 					Tags:        `["Glow Favorite", "High BV", "Botanical", "Halal"]`,
 					Status:      domain.ProductStatusPublished,
 					IsFeatured:  true,
@@ -435,7 +435,7 @@ func SeedDefaults(db *gorm.DB) error {
 					Description: "Ceremonial Japanese matcha fused with creamy avocado, organic moringa, and vitamin E for crisp mental focus and cellular nourishment.",
 					Category:    "Superfood Blends",
 					Brand:       "Ascend Group",
-					ImageURL:    "/images/products/avocado-moringa.jpg",
+					ImageURL:    "/images/products/ascend-matcha.jpg",
 					Tags:        `["Superfood", "Clean Energy", "Matcha", "Halal"]`,
 					Status:      domain.ProductStatusPublished,
 					IsFeatured:  true,
@@ -463,7 +463,7 @@ func SeedDefaults(db *gorm.DB) error {
 					Description: "Japanese purple sweet potato rich in anthocyanins and prebiotic fiber for gentle digestion, immune resilience, and family-friendly nutrition.",
 					Category:    "Gut Health",
 					Brand:       "Ascend Group",
-					ImageURL:    "/images/products/purple-sweet-potato.jpg",
+					ImageURL:    "/images/products/ascend-violet.jpg",
 					Tags:        `["Gut Circle", "Anthocyanin", "Family Favorite"]`,
 					Status:      domain.ProductStatusPublished,
 					IsFeatured:  true,
@@ -491,7 +491,7 @@ func SeedDefaults(db *gorm.DB) error {
 					Description: "Our signature 3-box Ascend Circle starter kit combining Sunburst Citrus, Berry Bloom, and Emerald Matcha — maximum BV value for fast tier growth!",
 					Category:    "Value Bundles",
 					Brand:       "Ascend Group",
-					ImageURL:    "/images/products/cocoa-oat.jpg",
+					ImageURL:    "/images/products/ascend-bundle.jpg",
 					Tags:        `["Starter Bundle", "380 BV", "Best Value"]`,
 					Status:      domain.ProductStatusPublished,
 					IsFeatured:  true,
@@ -522,6 +522,19 @@ func SeedDefaults(db *gorm.DB) error {
 			v.ProductID = p.ID
 			_ = db.Create(&v).Error
 		}
+	}
+
+	// Ensure any previously seeded products using legacy image paths are upgraded to new Ascend Group photos
+	legacyImageMap := map[string]string{
+		"/images/products/mango-passion.jpg":       "/images/products/ascend-citrus.jpg",
+		"/images/products/beaufica-cranberry.jpg":  "/images/products/ascend-berry.jpg",
+		"/images/products/avocado-moringa.jpg":     "/images/products/ascend-matcha.jpg",
+		"/images/products/purple-sweet-potato.jpg": "/images/products/ascend-violet.jpg",
+		"/images/products/cocoa-oat.jpg":           "/images/products/ascend-bundle.jpg",
+	}
+	for oldURL, newURL := range legacyImageMap {
+		db.Model(&domain.Product{}).Where("image_url = ?", oldURL).Update("image_url", newURL)
+		db.Model(&domain.ProductVariant{}).Where("image_url = ?", oldURL).Update("image_url", newURL)
 	}
 
 	return nil

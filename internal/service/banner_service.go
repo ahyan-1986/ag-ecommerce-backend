@@ -75,7 +75,7 @@ func (s *bannerService) UploadBannerImage(id uuid.UUID, data []byte, contentType
 	}
 	key := fmt.Sprintf("banners/%s_%d%s", id.String(), time.Now().Unix(), ext)
 
-	url, err := s.storage.UploadFile("asianmum", key, data, contentType)
+	url, err := s.storage.UploadFile("ag-ecommerce", key, data, contentType)
 	if err != nil {
 		return "", fmt.Errorf("upload failed: %w", err)
 	}

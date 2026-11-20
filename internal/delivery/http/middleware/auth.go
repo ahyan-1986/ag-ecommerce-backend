@@ -16,7 +16,7 @@ const (
 	ContextRole   = "userRole"
 )
 
-type asianmumJWTClaims struct {
+type ascendJWTClaims struct {
 	UserID string `json:"userId"`
 	Role   string `json:"role"`
 	Type   string `json:"type"`
@@ -37,14 +37,14 @@ func AuthMiddleware(cfg *config.Config) gin.HandlerFunc {
 			return
 		}
 		tokenStr := parts[1]
-		token, err := jwt.ParseWithClaims(tokenStr, &asianmumJWTClaims{}, func(t *jwt.Token) (interface{}, error) {
+		token, err := jwt.ParseWithClaims(tokenStr, &ascendJWTClaims{}, func(t *jwt.Token) (interface{}, error) {
 			return []byte(cfg.JWT.Secret), nil
 		})
 		if err != nil || !token.Valid {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
 			return
 		}
-		claims, ok := token.Claims.(*asianmumJWTClaims)
+		claims, ok := token.Claims.(*ascendJWTClaims)
 		if !ok || claims.Type != "access" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid token type"})
 			return
