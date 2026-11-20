@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ahyan-1986/asianmum-backend
+  IMAGE_NAME: ahyan-1986/ag-ecommerce-backend
 
 jobs:
   build:
